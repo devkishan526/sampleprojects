@@ -6,6 +6,10 @@
   <title>Pet Store</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -23,7 +27,6 @@
       justify-content: space-between;
       background-color: #ffffff;
       padding: 15px 30px;
-      color: black;
       border-bottom: 1px solid #ddd;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
@@ -65,6 +68,34 @@
     nav a:hover,
     .icons i:hover {
       color: #ff6600;
+    }
+
+    /* Mobile Nav */
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background-color: white;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
     }
 
     /* Main Section */
@@ -120,7 +151,7 @@
       color: white;
     }
 
-    /* Info Boxes Section */
+    /* Info Boxes */
     .info-boxes {
       display: flex;
       justify-content: space-around;
@@ -157,7 +188,6 @@
       transform: translateY(-5px);
     }
 
-    /* Other box colors */
     .box2 {
       background-color: #ffe0b2;
     }
@@ -174,6 +204,85 @@
       color: #6a1b9a;
     }
 
+    /* Product Cards */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px 20px;
+    }
+
+    .product-card {
+      border: 1px solid #eee;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
+      padding: 20px;
+      background: white;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .product-card h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+    }
+
+    .product-card p {
+      font-size: 16px;
+      color: #444;
+    }
+
+    .buy-btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #ff6600;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .buy-btn:hover {
+      background-color: #e65c00;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 30px 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .footer-left,
+    .footer-right {
+      flex: 1 1 300px;
+    }
+
+    .footer-left h4,
+    .footer-right h4 {
+      margin-bottom: 10px;
+    }
+
+    .social-icons a {
+      margin-right: 15px;
+      color: white;
+      font-size: 20px;
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      color: orange;
+    }
   </style>
 </head>
 <body>
@@ -185,7 +294,7 @@
       <h1>Pet World</h1>
     </div>
 
-    <nav>
+    <nav id="nav-links">
       <a href="#">Home</a>
       <a href="#">Pets</a>
       <a href="#">Contact Us</a>
@@ -195,13 +304,14 @@
       <i class="fas fa-search" title="Search"></i>
       <i class="fas fa-user-shield" title="Admin"></i>
       <i class="fas fa-shopping-cart" title="Cart"></i>
+      <i class="fas fa-bars menu-toggle" onclick="toggleMenu()"></i>
     </div>
   </header>
 
   <!-- Main Section -->
   <main>
     <div class="main-section">
-      <img src="https://images.pexels.com/photos/45170/kittens-cat-cat-puppy-rush-45170.jpeg?_gl=1*1h340x4*_ga*ODM5MTQwMTYwLjE3NDAwNDQ5MzA.*_ga_8JE65Q40S6*czE3NTI1OTAxNjMkbzYkZzEkdDE3NTI1OTAxODAkajQzJGwwJGgw" alt="Cute Pets">
+      <img src="https://images.pexels.com/photos/45170/kittens-cat-cat-puppy-rush-45170.jpeg" alt="Cute Pets">
       <div class="overlay-text">
         <h2>COLLARS & LEASHES</h2>
         <p>Rich and elegant designs and affordable designs.</p>
@@ -210,7 +320,7 @@
     </div>
   </main>
 
-  <!-- Info Boxes Section -->
+  <!-- Info Boxes -->
   <section class="info-boxes">
     <div class="box box1">
       <i class="fas fa-shipping-fast"></i>
@@ -226,8 +336,52 @@
     </div>
   </section>
 
-  <!-- JavaScript for icon alerts -->
+  <!-- Product Cards -->
+  <section class="product-grid">
+    <div class="product-card">
+      <img src="https://images.pexels.com/photos/4587991/pexels-photo-4587991.jpeg" alt="Product 1">
+      <h3>Luxury Collar</h3>
+      <p>₹499</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="https://images.pexels.com/photos/5255199/pexels-photo-5255199.jpeg" alt="Product 2">
+      <h3>Comfort Leash</h3>
+      <p>₹349</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="https://images.pexels.com/photos/6235233/pexels-photo-6235233.jpeg" alt="Product 3">
+      <h3>Pet Toy Ball</h3>
+      <p>₹199</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-left">
+      <h4>Contact Us</h4>
+      <p>Email: support@petworld.com</p>
+      <p>Phone: +91 9876543210</p>
+    </div>
+    <div class="footer-right">
+      <h4>Follow Us</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
   <script>
+    function toggleMenu() {
+      const nav = document.getElementById('nav-links');
+      nav.classList.toggle('active');
+    }
+
     document.querySelector('.fa-search').addEventListener('click', () => {
       alert('Search button clicked!');
     });
